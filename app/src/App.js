@@ -9,6 +9,7 @@ import MyInput from './components/UI/input/MyInput'
 import Loader from './components/UI/Loader/Loader'
 import MyModal from './components/UI/MyModal/MyModal'
 import MySelect from './components/UI/MySelect/MySelect'
+import Pagination from './components/UI/pagination/Pagination'
 import { useFetching } from './hooks/useFetching'
 import { usePosts } from './hooks/usePosts'
 import './styles/App.css'
@@ -24,7 +25,6 @@ function App() {
 	const [page, setPage] = useState(1)
 	const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 	
-	let pagesArray = getPagesArray(totalPages); 
 	
 	const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
 		const response = await PostService.getAll(limit, page)
@@ -78,18 +78,9 @@ function App() {
 				? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader /></div>
 				: <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Список постов 1" /> 
 			}
-			<div className="page__wrapper">
-				{pagesArray.map(p => 
-					<span 
-						onClick={() => changePage(p)}
-						key={p}
-						className={page === p ? 'page page__current' : 'page'}
+			
+			<Pagination page={page} changePage={changePage} totalPages={totalPages} />
 
-					>{p}</span>
-				)}
-			</div>
-			
-			
 		</div>
 	)
 }
