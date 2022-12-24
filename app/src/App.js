@@ -46,13 +46,7 @@ function App() {
 				filter={filter} 
 				setFilter={setFilter}		
 			/>
-			
-			{sortedAndSearchedPosts.length !== 0 
-				? 
-				<PostList remove={removePost} posts={sortedAndSearchedPosts} title="Список постов 1" />
-				:
-				<h1 style={{textAlign: 'center'}}>Посты не найдены</h1> 
-			}
+			<PostList remove={removePost} posts={sortedAndSearchedPosts} title="Список постов 1" />
 		</div>
 	)
 }
