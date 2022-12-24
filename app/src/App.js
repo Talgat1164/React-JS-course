@@ -19,26 +19,28 @@ function App() {
 	const addNewPost = (e) => {
 		e.preventDefault()
 		console.log(title)
-		console.log(bodyInputRef.current)
+		console.log(bodyInputRef.current.value)
+		
 	}
 
 	return (
 		<div className='App'>
-		<form>
-			<MyInput 
-				type="text" 
-				placeholder="Название поста" 
-				value={title}
-				onChange={e => setTitle(e.target.value)}
-			/>
-			<input ref={bodyInputRef} type="text"/>
-			{/* <MyInput 
-				type="text" 
-				placeholder="Описание поста" 
-				ref={bodyInputRef}
-			/> */}
-			<MyButton onClick={addNewPost}>Создать пост</MyButton>
-		</form>
+			<form>
+			{/* УПРАВЛЯУМЫЙ ИНПУТ */}
+				<MyInput 
+					type="text" 
+					placeholder="Название поста" 
+					value={title}
+					onChange={e => setTitle(e.target.value)}
+				/>
+				{/* НЕУПРАВЛЯЕМЫЙ ИНПУТ */}
+				<MyInput 
+					type="text" 
+					placeholder="Описание поста" 
+					ref={bodyInputRef}	
+				/>
+				<MyButton onClick={addNewPost}>Создать пост</MyButton>
+			</form>
 			<PostList posts={posts} title="Список постов 1" />
 		</div>
 	)
