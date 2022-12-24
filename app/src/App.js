@@ -39,7 +39,7 @@ function App() {
 	useEffect(() => {
 		fetchPosts()
 		console.log('useEFFFECT fetch posts')
-	}, [])
+	}, [page])
 	// useEffects - срабатывает тогда когда массив изменяется
 
 	const createPost = (newPost) => {
@@ -55,7 +55,6 @@ function App() {
 
 	const changePage = (page) => {
 		setPage(page)
-		fetchPosts()
 	}
 	
 	return (
