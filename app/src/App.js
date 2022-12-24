@@ -26,7 +26,7 @@ function App() {
 	
 	let pagesArray = getPagesArray(totalPages); 
 	
-	const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+	const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
 		const response = await PostService.getAll(limit, page)
 		setPosts(response.data)
 		console.log(response.headers['x-total-count'])
@@ -37,7 +37,7 @@ function App() {
 	console.log(totalPages)
 
 	useEffect(() => {
-		fetchPosts()
+		fetchPosts(limit, page)
 		console.log('useEFFFECT fetch posts')
 	}, [page])
 	// useEffects - срабатывает тогда когда массив изменяется
