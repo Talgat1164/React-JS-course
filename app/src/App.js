@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import PostList from './components/PostList'
 import MyButton from './components/UI/button/MyButton'
 import MyInput from './components/UI/input/MyInput'
@@ -12,32 +12,34 @@ function App() {
 		{ id: 4, title: 'c++', body: 'DESCRIPTION' },
 	])
 	const [title, setTitle] = useState('')
-	const bodyInputRef = useRef() 
-	// useRef - это хук которым можно управлять напрямую дом-элементом 
-	// console.log(bodyInputRef.current) <input type="text">
+	const [body, setBody] = useState('')
 
 	const addNewPost = (e) => {
 		e.preventDefault()
-		console.log(title)
-		console.log(bodyInputRef.current.value)
-		
+		const newPost = {
+			id : Date.now(), 
+			title, 
+			body	
+		}
+		setPosts([...posts, newPost])
+		setTitle('')
+		setBody('')
 	}
 
 	return (
 		<div className='App'>
 			<form>
-			{/* УПРАВЛЯУМЫЙ ИНПУТ */}
 				<MyInput 
 					type="text" 
 					placeholder="Название поста" 
 					value={title}
 					onChange={e => setTitle(e.target.value)}
 				/>
-				{/* НЕУПРАВЛЯЕМЫЙ ИНПУТ */}
 				<MyInput 
 					type="text" 
 					placeholder="Описание поста" 
-					ref={bodyInputRef}	
+					value={body}
+					onChange={e => setBody(e.target.value)}
 				/>
 				<MyButton onClick={addNewPost}>Создать пост</MyButton>
 			</form>
