@@ -1,19 +1,36 @@
 import React from 'react'
 import { Routes, Route} from 'react-router-dom'
-import About from '../pages/About'
+import { Navigate } from 'react-router-dom';
+
+import Login from '../pages/Login';
 import Posts from '../pages/Posts'
-import Error from '../pages/Error'
-import PostIdPage from '../pages/PostIdPage'
+import { privateRoutes, publicRoutes} from '../router/index.js'
 
 
 function AppRouter() {
+	const isAuth = true; 
+
 	return (
+		isAuth 
+		?
 		<Routes>
-      <Route path='/about' element={<About />} />
-			<Route path='/posts' element={<Posts />} />
-			<Route path='/posts/:id' element={<PostIdPage />} />
-			<Route path='/*' element={ <Error /> }></Route> 			
+      {privateRoutes.map(route =>
+        <Route
+         	element={route.element}
+        	path={route.path}
+        />
+      )}
+			<Route path='/*' element={ <Navigate to="/posts" /> } />	
 		</Routes>	
+		: <Routes>
+      {publicRoutes.map(route =>
+        <Route
+         	element={route.element}
+        	path={route.path}
+        />
+      )}
+			<Route path='/*' element={ <Navigate to="/login" /> } />		
+		</Routes>
 	)
 }
 
