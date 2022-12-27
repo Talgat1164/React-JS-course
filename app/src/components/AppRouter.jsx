@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Routes, Route} from 'react-router-dom'
 import { Navigate } from 'react-router-dom';
+import { AuthContext } from '../context/index.js';
 
-import Login from '../pages/Login';
-import Posts from '../pages/Posts'
+
 import { privateRoutes, publicRoutes} from '../router/index.js'
 
 
 function AppRouter() {
-	const isAuth = true; 
+	const {isAuth, setIsAuth} = useContext(AuthContext);
+	console.log(isAuth) 
 
 	return (
 		isAuth 
@@ -18,6 +19,7 @@ function AppRouter() {
         <Route
          	element={route.element}
         	path={route.path}
+					key={route.path}
         />
       )}
 			<Route path='/*' element={ <Navigate to="/posts" /> } />	
@@ -27,6 +29,8 @@ function AppRouter() {
         <Route
          	element={route.element}
         	path={route.path}
+					key={route.path}
+
         />
       )}
 			<Route path='/*' element={ <Navigate to="/login" /> } />		
